@@ -1,7 +1,9 @@
+//remove / before @ in paths from jsconfig.json  to resolve  @styles/global.css
+//it means to take simply from root route
 {
   "compilerOptions": {
     "paths": {
-      "@/*": ["./*"]
+      "@*": ["./*"]
     }
   }
 }
