@@ -108,10 +108,23 @@ const Nav = () => {
                       className="rounded-full"
                       alt="profile"
                     //onclick property for dropdown in mobile navbar
-                    onClick={() =>{
-
-                    } }
+                    //inside settoggledropdown state we use callback function  to opposite of prev state current value
+                    onClick={() => setToggleDropdown((prev)=> !prev)
+                     }
                     />
+                    {toggleDropdown && (
+                        //for toggledropdown true
+                        <div className="dropdown">
+                            <Link
+                            href="/profile"
+                            className="dropdown_link"
+                            onClick={() => setToggleDropdown
+                            (false)}
+                            >
+                                My Profile
+                            </Link>
+                            </div>
+                    )}
                     </div>
             ): (
                 <>
