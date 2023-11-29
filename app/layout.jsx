@@ -1,6 +1,8 @@
 import '@styles/globals.css'
 
 import Nav from '@components/Nav';
+//all the providers,the redux toolkit query, 
+//usually used files and functionalities they all go in layout.jsx
 import Provider from '@components/Provider';
 //going to import css to entire appln
 
@@ -19,14 +21,16 @@ const Rootlayout = ({children}) => {
     //wrapping everything in html tag
     <html lang="en">
         <body>
+            <Provider>
             <div className='main'>
                 <div className='gradient' />
             </div>
-
+                
             <main className='app'>
                 <Nav />
                 {children}
             </main>
+            </Provider>
         </body>
     </html>
   )

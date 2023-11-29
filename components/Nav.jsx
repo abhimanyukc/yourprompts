@@ -102,7 +102,7 @@ const Nav = () => {
             {isUserLoggedIn ? (
                 <div className="flex">
                     <Image 
-                      src ="/assets/images/logo.svg"
+                      src ="/assets/images/logo-text.svg"
                       width={37}
                       height={37}
                       className="rounded-full"
@@ -123,6 +123,28 @@ const Nav = () => {
                             >
                                 My Profile  
                             </Link>
+
+                             <Link
+                            // we did onclick false so its reset the navgn
+                            href="/create-prompt"
+                            className="dropdown_link"
+                            onClick={() => setToggleDropdown
+                            (false)}
+                            >
+                                Create Prompt
+                            </Link>
+
+                            <button
+                                type="button"
+                                onclick={() => {
+                                    setToggleDropdown(false);
+                                   //for signout
+                                    signOut();
+                                }}
+                                className="mt-5 w-full black_btn"
+                            >
+                                Sign Out
+                            </button>
                             </div>
                     )}
                     </div>
