@@ -12,21 +12,26 @@ import { signIn, signOut, useSession, getProviders} from 'next-auth/react';
 
 const Nav = () => {
     // to mark the state of a user being logged in or not we create new variable
-    const isUserLoggedIn = true;
-    //initializing providers
+    // const isUserLoggedIn = true; 
+    // we can put real data from session instead of above code
+    //we can use nextauth useSession hook to be able to get current user data
+    const {data: session} = useSession();
+
+    //provdiers coming from getproviders
     const [providers, setProviders ] = useState(null);
     //setting those providers using useeffect hook , 
     //that has a callback function and only runs at the start
 
     const [toggleDropdown, setToggleDropdown] = useState(false);
     useEffect(() => {
-        const setProviders = async () => {
+          
+        const setUpProviders = async () => {
             const response = await getProviders();
             //once we get response we can simply set providers to our state equals to response
             setProviders(response);
         }
-        //calling setproviders
-        setProviders();
+        //calling setUpproviders
+        setUpProviders();
         //this going to allow sign in using google and next auth
 
 
@@ -44,12 +49,17 @@ const Nav = () => {
         />
         <p className="logo_text">Your Prompt</p>
         </Link>
+        {/* alert to be able to know what  we have  there so just alertand  we dont have to open in console
+          and it show undefined alert means there is no user*/}
+        {/* {alert(session?.user)} */}
 
+       {/*if no user alert the provider object ,it show alert null as no signin buttons  */}
+        {/* {alert(providers)} */}
         {/* Desktop Navigation 
         on small devices it going to be flex(visible),
           going to be hidden for extra small devices*/}
         <div className="sm:flex hidden">
-           {isUserLoggedIn ? (
+           {session?.user ? (
             //gap-5 for medium devices
             <div className="flex gap-3 md:gap-5">
                 <Link href="/create-prompt"
@@ -63,7 +73,7 @@ const Nav = () => {
 
                 <Link href="/profile">
                     <Image 
-                      src ="/assets/images/logo.svg"
+                      src ={session?.user.image}
                       width={37}
                       height={37}
                       className="rounded-full"
@@ -99,10 +109,13 @@ const Nav = () => {
 
         {/* Mobile Navigation */}
         <div className="sm:hidden flex relative">
-            {isUserLoggedIn ? (
+            {/* checking if user exists */}
+            {session?.user ?  (
                 <div className="flex">
                     <Image 
-                      src ="/assets/images/logo-text.svg"
+                    //replacing logo with real icon
+
+                      src ={session?.user.image}
                       width={37}
                       height={37}
                       className="rounded-full"

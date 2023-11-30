@@ -3,7 +3,7 @@
    import { Schema, model, models} from 'mongoose'
    //help to interact with mongodb database
 
-   const UserSchema = newSchema({
+   const UserSchema = new Schema({
     email: {
         type: String,
         unique: [true, 'Email already exists!'],

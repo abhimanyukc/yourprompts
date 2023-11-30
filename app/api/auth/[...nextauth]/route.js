@@ -1,6 +1,7 @@
 //within here we can setup our providers such as google authentication
 //use of nextjs api routes or backend endpoints alongside using frontendside
-// route going to handle our entire auth process
+//api  route going to handle our entire auth process
+//we add all functions needed
 import NextAuth from "next-auth";
 import GoogleProvider from 'next-auth/providers/google';
 import User from '@models/user'
@@ -14,6 +15,7 @@ import { connectToDB } from "@utils/database";
 
 //creating handler, next-auth,importing these things and exporting them in the way that we did.
 //check next-auth documentation
+//when working with handler u have providers and callbacks
 const handler = NextAuth({
     providers: [
         GoogleProvider({
@@ -21,7 +23,9 @@ const handler = NextAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         })
     ],
-    //creating session
+    callbacks: {
+         //within callbacks object we keep session and signin function
+         //creating session
     async session({ session}) {
         //finally to get data about user every single time to keep and existing and running session
         const sessionUser = await  User.findOne({
@@ -66,6 +70,9 @@ const handler = NextAuth({
         }
 
     }
+
+    }
+   
 })
 
 export {handler as GET, handler as POST };
